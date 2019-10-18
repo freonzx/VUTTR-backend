@@ -13,7 +13,7 @@ class ToolController {
     }
 
     async store(req, res) {
-        const tool = await Tool.create(req.body)
+        const tool = await Tool.create({ ...req.body, author: req.userId })
 
         return res.status(201).json(tool)
     }
@@ -21,10 +21,22 @@ class ToolController {
     async show(req, res) {
         const tool = await Tool.findById(req.params.id)
 
+        if (!tool) {
+            return res.json({ error: 'Nothing found with provided id' })
+        }
+
         return res.json(tool)
     }
 
     async update(req, res) {
+        const check = await Tool.findById(req.params.id)
+
+        if (req.userId != check.author) {
+            return res
+                .status(401)
+                .json({ error: "You don't have permission to do that" })
+        }
+
         const tool = await Tool.findByIdAndUpdate(req.params.id, req.body, {
             new: true
         })
@@ -33,6 +45,14 @@ class ToolController {
     }
 
     async destroy(req, res) {
+        const check = await Tool.findById(req.params.id)
+
+        if (req.userId != check.author) {
+            return res
+                .status(401)
+                .json({ error: "You don't have permission to do that" })
+        }
+
         await Tool.findByIdAndDelete(req.params.id)
 
         return res.status(204).send()
