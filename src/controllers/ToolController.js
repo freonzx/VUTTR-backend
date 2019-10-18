@@ -22,7 +22,9 @@ class ToolController {
         const tool = await Tool.findById(req.params.id)
 
         if (!tool) {
-            return res.json({ error: 'Nothing found with provided id' })
+            return res
+                .status(400)
+                .json({ error: 'Nothing found with provided id' })
         }
 
         return res.json(tool)
