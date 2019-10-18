@@ -2,7 +2,12 @@ const Tool = require('../models/Tool')
 
 class ToolController {
     async index(req, res) {
-        const tools = await Tool.find()
+        const filters = {}
+        if (req.query.tag) {
+            filters.tags = new RegExp(req.query.tag, 'i')
+        }
+
+        const tools = await Tool.find(filters)
 
         return res.json(tools)
     }
