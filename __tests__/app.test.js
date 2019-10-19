@@ -92,17 +92,10 @@ describe('Tools', () => {
             .post('/tools')
             .set('Authorization', 'Bearer ' + token)
             .send({
-                title: 'Notion',
-                link: 'https://notion.so',
-                description:
-                    'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ',
-                tags: [
-                    'organization',
-                    'planning',
-                    'collaboration',
-                    'writing',
-                    'calendar'
-                ]
+                title: 'test',
+                link: 'https://test.com',
+                description: 'test',
+                tags: ['test']
             })
 
         expect(res.status).toBe(201)
@@ -111,17 +104,10 @@ describe('Tools', () => {
 
     it('Should NOT be able to create post unauthorized', async done => {
         const res = await request.post('/tools').send({
-            title: 'Notion',
-            link: 'https://notion.so',
-            description:
-                'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ',
-            tags: [
-                'organization',
-                'planning',
-                'collaboration',
-                'writing',
-                'calendar'
-            ]
+            title: 'test',
+            link: 'https://test.com',
+            description: 'test',
+            tags: ['test']
         })
 
         expect(res.status).toBe(401)
@@ -133,17 +119,10 @@ describe('Tools', () => {
             .post('/tools')
             .set('Authorization', 'Bearer ' + token)
             .send({
-                title: 'Notion',
-                link: 'https://notion.so',
-                description:
-                    'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ',
-                tags: [
-                    'organization',
-                    'planning',
-                    'collaboration',
-                    'writing',
-                    'calendar'
-                ]
+                title: 'test',
+                link: 'https://test.com',
+                description: 'test',
+                tags: ['test']
             })
 
         expect(res.status).toBe(201)
@@ -152,6 +131,60 @@ describe('Tools', () => {
         const showResponse = await request.get(`/tools/${toolId}`)
 
         expect(showResponse.status).toBe(200)
+        done()
+    })
+
+    it('Should be able to UPDATE created Tool', async done => {
+        const res = await request
+            .post('/tools')
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                title: 'test',
+                link: 'https://test.com',
+                description: 'test',
+                tags: ['test']
+            })
+
+        expect(res.status).toBe(201)
+        const toolId = res.body._id
+
+        const update = await request
+            .put(`/tools/${toolId}`)
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                title: 'test123',
+                link: 'https://test.com',
+                description: 'test',
+                tags: ['test']
+            })
+        const title = update.body.title
+
+        expect(title).toBe('test123')
+        done()
+    })
+
+    it('Should NOT be able to UPDATE Tool', async done => {
+        const res = await request
+            .post('/tools')
+            .set('Authorization', 'Bearer ' + token)
+            .send({
+                title: 'test',
+                link: 'https://test.com',
+                description: 'test',
+                tags: ['test']
+            })
+
+        expect(res.status).toBe(201)
+        const toolId = res.body._id
+
+        const update = await request.put(`/tools/${toolId}`).send({
+            title: 'test123',
+            link: 'https://test.com',
+            description: 'test',
+            tags: ['test']
+        })
+
+        expect(update.status).toBe(401)
         done()
     })
 })
