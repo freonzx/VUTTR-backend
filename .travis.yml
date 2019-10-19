@@ -4,4 +4,6 @@ node_js:
     - '10.16.3'
 
 script:
-    - npm run test
+    - yarn start &
+    - sleep 2
+    - yarn test
