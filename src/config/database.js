@@ -1,3 +1,4 @@
 module.exports = {
-    uri: process.env.DB_URL
+    uri:
+        'mongodb+srv://freonzx:235689a@cluster0-a4fmk.mongodb.net/bossabox?retryWrites=true&w=majority'
 }
