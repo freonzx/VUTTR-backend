@@ -1,41 +1,15 @@
-// Mongo
-const mongoose = require('mongoose')
-const databaseName = 'test'
 // App
-const app = require('../src/server')
+const app = require('../../src/server')
 const supertest = require('supertest')
 const request = supertest(app)
 // Models
-const User = require('../src/models/User')
-const Tool = require('../src/models/Tool')
+const User = require('../../src/models/User')
+const { setupDB } = require('../test-setup')
+
+// Setup a Test Database
+setupDB('testing')
 
 let token = null
-
-async function removeAllCollections() {
-    const collections = Object.keys(mongoose.connection.collections)
-    for (const collectionName of collections) {
-        const collection = mongoose.connection.collections[collectionName]
-        await collection.deleteMany()
-    }
-}
-
-// Open connection to test database
-beforeAll(async () => {
-    const url = `mongodb+srv://freonzx:235689a@cluster0-a4fmk.mongodb.net/${databaseName}?retryWrites=true&w=majority`
-    await mongoose.connect(url, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-})
-
-//Cleans up database between each test
-afterEach(async () => {
-    await removeAllCollections()
-})
-
-afterAll(() => {
-    mongoose.connection.close()
-})
 
 describe('API is Online', () => {
     it('Gets the test endpoint', async () => {
