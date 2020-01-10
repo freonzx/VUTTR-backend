@@ -1,4 +1,4 @@
-const Joi = require("joi");
+const Joi = require('joi')
 
 module.exports = {
     body: {
@@ -8,6 +8,6 @@ module.exports = {
         password: Joi.string()
             .required()
             .min(6),
-        name: Joi.string().required()
-    }
-};
+        name: Joi.string().required(),
+    },
+}

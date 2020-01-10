@@ -4,28 +4,28 @@ const Tool = new mongoose.Schema(
     {
         title: {
             type: String,
-            required: true
+            required: true,
         },
         link: {
             type: String,
-            required: true
+            required: true,
         },
         description: {
             type: String,
-            required: true
+            required: true,
         },
         tags: {
             type: [String],
-            required: true
+            required: true,
         },
         author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
-            required: true
-        }
+            required: true,
+        },
     },
     {
-        timestamps: true
+        timestamps: true,
     }
 )
 

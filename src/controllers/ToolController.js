@@ -40,7 +40,7 @@ class ToolController {
         }
 
         const tool = await Tool.findByIdAndUpdate(req.params.id, req.body, {
-            new: true
+            new: true,
         })
 
         return res.json(tool)
