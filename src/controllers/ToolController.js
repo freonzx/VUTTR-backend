@@ -6,6 +6,10 @@ class ToolController {
         if (req.query.tag) {
             filters.tags = new RegExp(req.query.tag, 'i')
         }
+		
+		if (req.query.q) {
+            filters.description = new RegExp(req.query.q, 'i')
+        }
 
         const tools = await Tool.find(filters)
 
