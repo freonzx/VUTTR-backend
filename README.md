@@ -1,5 +1,6 @@
 # VUTTR Backend - BossaBox
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/946089d875ef42c5a173b2c175d97164)](https://app.codacy.com/manual/freonzx/VUTTR-backend?utm_source=github.com&utm_medium=referral&utm_content=freonzx/VUTTR-backend&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/freonzx/VUTTR-backend.svg?branch=master)](https://travis-ci.org/freonzx/VUTTR-backend)
 
 Sua tarefa é construir uma API e banco de dados para a aplicação VUTTR (Very Useful Tools to Remember). A aplicação é um simples repositório para gerenciar ferramentas com seus respectivos nomes, links, descrições e tags. Utilize um repositório Git (público, de preferência) para versionamento e disponibilização do código.
