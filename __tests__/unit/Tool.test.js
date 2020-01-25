@@ -1,5 +1,5 @@
-const Tool = require('../../src/models/Tool')
 const mongoose = require('mongoose')
+const Tool = require('../../src/models/Tool')
 const { setupDB } = require('../test-setup')
 
 setupDB('testing')
@@ -9,7 +9,7 @@ const toolData = {
     link: 'test',
     description: 'test',
     author: '5daa24d12f27f22f903d0573',
-    tags: ['test']
+    tags: ['test'],
 }
 
 describe('Tool model unit test', () => {
@@ -30,7 +30,7 @@ describe('Tool model unit test', () => {
             description: 'test',
             author: '5daa24d12f27f22f903d0573',
             tags: ['test'],
-            test: '123'
+            test: '123',
         })
         const savedToolWithInvalidField = await toolWithInvalidField.save()
         expect(savedToolWithInvalidField._id).toBeDefined()

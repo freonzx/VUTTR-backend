@@ -1,5 +1,5 @@
-const User = require('../../src/models/User')
 const mongoose = require('mongoose')
+const User = require('../../src/models/User')
 const { setupDB } = require('../test-setup')
 
 setupDB('testing')
@@ -7,7 +7,7 @@ setupDB('testing')
 const userData = {
     name: 'Freon',
     email: 'test@test.com',
-    password: '123123'
+    password: '123123',
 }
 
 describe('User model unit test', () => {
@@ -25,7 +25,7 @@ describe('User model unit test', () => {
             name: 'Freon',
             email: 'test@test.com',
             password: '123123',
-            avatar: 'test'
+            avatar: 'test',
         })
         const savedUserWithInvalidField = await userWithInvalidField.save()
         expect(savedUserWithInvalidField._id).toBeDefined()

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+
 mongoose.set('useCreateIndex', true)
 mongoose.set('useUnifiedTopology', true)
 mongoose.set('useFindAndModify', false)
@@ -29,5 +30,5 @@ module.exports = {
         afterAll(async () => {
             await mongoose.connection.close()
         })
-    }
+    },
 }

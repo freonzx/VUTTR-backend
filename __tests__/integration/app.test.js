@@ -1,6 +1,7 @@
 // App
-const app = require('../../src/server')
 const supertest = require('supertest')
+const app = require('../../src/server')
+
 const request = supertest(app)
 // Models
 const User = require('../../src/models/User')
@@ -24,7 +25,7 @@ describe('User Registration', () => {
         const res = await request.post('/users').send({
             name: 'Freon',
             email: 'testing@gmail.com',
-            password: '123123'
+            password: '123123',
         })
 
         expect(res.status).toBe(200)
@@ -44,14 +45,14 @@ describe('Session', () => {
         let res = await request.post('/users').send({
             name: 'Freon',
             email: 'testing@gmail.com',
-            password: '123123'
+            password: '123123',
         })
         expect(res.status).toBe(200)
 
         // Tries to login and expect token
         res = await request.post('/sessions').send({
             email: 'testing@gmail.com',
-            password: '123123'
+            password: '123123',
         })
         expect(res.status).toBe(200)
         expect(res.body.token).toBeTruthy()
@@ -64,12 +65,12 @@ describe('Tools', () => {
     it('Should be able to create new post', async done => {
         const res = await request
             .post('/tools')
-            .set('Authorization', 'Bearer ' + token)
+            .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'test',
                 link: 'https://test.com',
                 description: 'test',
-                tags: ['test']
+                tags: ['test'],
             })
 
         expect(res.status).toBe(201)
@@ -81,7 +82,7 @@ describe('Tools', () => {
             title: 'test',
             link: 'https://test.com',
             description: 'test',
-            tags: ['test']
+            tags: ['test'],
         })
 
         expect(res.status).toBe(401)
@@ -91,12 +92,12 @@ describe('Tools', () => {
     it('Should be able to SHOW created Tool', async done => {
         const res = await request
             .post('/tools')
-            .set('Authorization', 'Bearer ' + token)
+            .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'test',
                 link: 'https://test.com',
                 description: 'test',
-                tags: ['test']
+                tags: ['test'],
             })
 
         expect(res.status).toBe(201)
@@ -111,12 +112,12 @@ describe('Tools', () => {
     it('Should be able to UPDATE created Tool', async done => {
         const res = await request
             .post('/tools')
-            .set('Authorization', 'Bearer ' + token)
+            .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'test',
                 link: 'https://test.com',
                 description: 'test',
-                tags: ['test']
+                tags: ['test'],
             })
 
         expect(res.status).toBe(201)
@@ -124,14 +125,14 @@ describe('Tools', () => {
 
         const update = await request
             .put(`/tools/${toolId}`)
-            .set('Authorization', 'Bearer ' + token)
+            .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'test123',
                 link: 'https://test.com',
                 description: 'test',
-                tags: ['test']
+                tags: ['test'],
             })
-        const title = update.body.title
+        const { title } = update.body
 
         expect(title).toBe('test123')
         done()
@@ -140,12 +141,12 @@ describe('Tools', () => {
     it('Should NOT be able to UPDATE Tool', async done => {
         const res = await request
             .post('/tools')
-            .set('Authorization', 'Bearer ' + token)
+            .set('Authorization', `Bearer ${token}`)
             .send({
                 title: 'test',
                 link: 'https://test.com',
                 description: 'test',
-                tags: ['test']
+                tags: ['test'],
             })
 
         expect(res.status).toBe(201)
@@ -155,7 +156,7 @@ describe('Tools', () => {
             title: 'test123',
             link: 'https://test.com',
             description: 'test',
-            tags: ['test']
+            tags: ['test'],
         })
 
         expect(update.status).toBe(401)
